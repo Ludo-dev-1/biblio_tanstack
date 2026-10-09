@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { logoutFunction } from '#/auth/service.ts'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getAllBook } from '#/book/serviceBook.ts'
 
 export const Route = createFileRoute('/')({ component: Home })
 
@@ -9,7 +10,12 @@ function Home() {
  const navigate = useNavigate()
   const name = localStorage.getItem('name')
 
-const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'))
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'))
+    const [books, setBooks] = useState<any[]>([])
+
+    useEffect(() => {
+        getAllBook().then((data) => setBooks(data))
+    },[])
 
   function logout(){
     logoutFunction()
@@ -63,32 +69,32 @@ const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('t
             <h2 className="mb-6 text-3xl font-bold">Liste des livres</h2>
 
             <ul className="space-y-3">
-              <li>
-                <Link
-                  to="/details/$id"
-                  params={{ id: '1' }}
-                  className="text-blue-600 hover:underline"
-                >
-                  Livre 1
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  to="/details/$id"
-                  params={{ id: '2' }}
-                  className="text-blue-600 hover:underline"
-                >
-                  Livre 2
-                </Link>
-              </li>
+              {books.map((book) => (
+                <li key={book.id}>
+                  <Link
+                    to="/details/$id"
+                    params={{
+                      id: book.id,
+                    }}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {book.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
 
             <Link
-              to="/addbook"
+              to="/admin/addbook"
               className="mt-6 inline-block rounded-lg bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
             >
-              Ajouter un livre
+              Ajouter un livre avec route Admin parent
+            </Link>
+            <Link
+              to="/addbook"
+              className="mt-6 inline-block rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
+            >
+              Ajouter un livre sans route Admin parent
             </Link>
           </div>
         )}

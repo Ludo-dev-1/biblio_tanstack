@@ -10,19 +10,33 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccessDeniedRouteImport } from './routes/access-denied'
 import { Route as AddbookRouteImport } from './routes/addbook'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as AdminAddbookRouteImport } from './routes/admin.addbook'
 import { Route as DetailsIdRouteImport } from './routes/details/$id'
+import { Route as AdminDeleteBookIdRouteImport } from './routes/admin.deleteBook.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccessDeniedRoute = AccessDeniedRouteImport.update({
+  id: '/access-denied',
+  path: '/access-denied',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AddbookRoute = AddbookRouteImport.update({
   id: '/addbook',
   path: '/addbook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -35,45 +49,97 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminAddbookRoute = AdminAddbookRouteImport.update({
+  id: '/addbook',
+  path: '/addbook',
+  getParentRoute: () => AdminRoute,
+} as any)
 const DetailsIdRoute = DetailsIdRouteImport.update({
   id: '/details/$id',
   path: '/details/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminDeleteBookIdRoute = AdminDeleteBookIdRouteImport.update({
+  id: '/deleteBook/$id',
+  path: '/deleteBook/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/addbook': typeof AddbookRoute
+  '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin/addbook': typeof AdminAddbookRoute
   '/details/$id': typeof DetailsIdRoute
+  '/admin/deleteBook/$id': typeof AdminDeleteBookIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/addbook': typeof AddbookRoute
+  '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin/addbook': typeof AdminAddbookRoute
   '/details/$id': typeof DetailsIdRoute
+  '/admin/deleteBook/$id': typeof AdminDeleteBookIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/addbook': typeof AddbookRoute
+  '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin/addbook': typeof AdminAddbookRoute
   '/details/$id': typeof DetailsIdRoute
+  '/admin/deleteBook/$id': typeof AdminDeleteBookIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/addbook' | '/login' | '/register' | '/details/$id'
+  fullPaths:
+    | '/'
+    | '/access-denied'
+    | '/addbook'
+    | '/admin'
+    | '/login'
+    | '/register'
+    | '/admin/addbook'
+    | '/details/$id'
+    | '/admin/deleteBook/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/addbook' | '/login' | '/register' | '/details/$id'
-  id: '__root__' | '/' | '/addbook' | '/login' | '/register' | '/details/$id'
+  to:
+    | '/'
+    | '/access-denied'
+    | '/addbook'
+    | '/admin'
+    | '/login'
+    | '/register'
+    | '/admin/addbook'
+    | '/details/$id'
+    | '/admin/deleteBook/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/access-denied'
+    | '/addbook'
+    | '/admin'
+    | '/login'
+    | '/register'
+    | '/admin/addbook'
+    | '/details/$id'
+    | '/admin/deleteBook/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccessDeniedRoute: typeof AccessDeniedRoute
   AddbookRoute: typeof AddbookRoute
+  AdminRoute: typeof AdminRouteWithChildren
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   DetailsIdRoute: typeof DetailsIdRoute
@@ -88,11 +154,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/access-denied': {
+      id: '/access-denied'
+      path: '/access-denied'
+      fullPath: '/access-denied'
+      preLoaderRoute: typeof AccessDeniedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/addbook': {
       id: '/addbook'
       path: '/addbook'
       fullPath: '/addbook'
       preLoaderRoute: typeof AddbookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -109,6 +189,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/addbook': {
+      id: '/admin/addbook'
+      path: '/addbook'
+      fullPath: '/admin/addbook'
+      preLoaderRoute: typeof AdminAddbookRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/details/$id': {
       id: '/details/$id'
       path: '/details/$id'
@@ -116,12 +203,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DetailsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/deleteBook/$id': {
+      id: '/admin/deleteBook/$id'
+      path: '/deleteBook/$id'
+      fullPath: '/admin/deleteBook/$id'
+      preLoaderRoute: typeof AdminDeleteBookIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminAddbookRoute: typeof AdminAddbookRoute
+  AdminDeleteBookIdRoute: typeof AdminDeleteBookIdRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAddbookRoute: AdminAddbookRoute,
+  AdminDeleteBookIdRoute: AdminDeleteBookIdRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccessDeniedRoute: AccessDeniedRoute,
   AddbookRoute: AddbookRoute,
+  AdminRoute: AdminRouteWithChildren,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   DetailsIdRoute: DetailsIdRoute,

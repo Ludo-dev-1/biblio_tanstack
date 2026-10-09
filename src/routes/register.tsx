@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { type FormEvent, useState } from 'react'
+import { useState } from 'react'
 import { registerFunction } from '#/auth/service.ts'
 
 export const Route = createFileRoute('/register')({
@@ -13,7 +13,7 @@ function register() {
   const [email, setEmail] = useState('')
 
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     registerFunction(name, email, password)
       .then(() => {

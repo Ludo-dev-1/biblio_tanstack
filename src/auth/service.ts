@@ -53,3 +53,13 @@ export function hasRole(role: string | string[]): boolean {
   // Vérifie si le rôle demandé est présent dans la liste des rôles
   return roles.includes(role)
 }
+
+export function isAdmin(): boolean {
+  const roles = localStorage.getItem('roles')
+
+  if (!roles) {
+    return false
+  }
+
+  return JSON.parse(roles).includes('ROLE_ADMIN')
+}

@@ -1,9 +1,27 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
+
+import { isAdmin } from '#/auth/service'
 
 export const Route = createFileRoute('/addbook')({
-  component: addBook,
+   beforeLoad: () => {
+    const token = localStorage.getItem('token')
+
+    if (!token) {
+      throw redirect({
+        to: '/login',
+      })
+    }
+
+    if (!isAdmin()) {
+      throw redirect({
+        to: '/access-denied',
+      })
+    }
+  },
+
+  component: AddBook,
 })
 
-function addBook() {
+function AddBook() {
   return <div>Hello "/addbook"!</div>
 }

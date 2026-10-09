@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { type FormEvent, useState } from 'react'
+import {  useState } from 'react'
 import {getRoles, loginFunction } from '#/auth/service.ts'
 
 export const Route = createFileRoute('/login')({
@@ -13,31 +13,27 @@ function login() {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     loginFunction(email, password)
-        .then(() => {
-          const token = localStorage.getItem('token')
+      .then(() => {
+        const token = localStorage.getItem('token')
 
-          if (token) {
-            const roles = getRoles(token)
+        if (token) {
+          const roles = getRoles(token)
 
-            localStorage.setItem(
-                'roles',
-                JSON.stringify(roles)
-            )
-          }
+          localStorage.setItem('roles', JSON.stringify(roles))
+        }
 
-          localStorage.setItem('email', email)
-          localStorage.setItem('name', name)
+        localStorage.setItem('email', email)
+        localStorage.setItem('name', name)
 
-          navigate({ to: '/' })
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-
+        navigate({ to: '/' })
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   return (
