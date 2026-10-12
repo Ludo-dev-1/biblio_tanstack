@@ -1,6 +1,6 @@
 import {createFileRoute, Link} from '@tanstack/react-router'
 import type {BookRequest} from '#/book/serviceBook.ts'
-/*import { getAllBookWithLoader } from '#/book/serviceBook.ts'*/
+/* import { getAllBookWithLoader } from '#/book/serviceBook.ts'*/
 import {getAllBook} from '#/book/serviceBook.ts'
 
 export const Route = createFileRoute('/book')({
