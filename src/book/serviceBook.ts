@@ -1,6 +1,7 @@
 import { httpClient } from '../api/http-client'
 
 export interface BookRequest {
+  id: string
   title: string
   author: string
   category: string
@@ -18,7 +19,19 @@ export async function getAllBook() {
 
   return response.data
 }
+export async function getAllBookWithLoader() {
+  await new Promise((resolve) => setTimeout(resolve, 3000))
 
+  const token = localStorage.getItem('token')
+
+  const response = await httpClient.get('/api/books', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  return response.data
+}
 export async function getBook(id: string) {
   const token = localStorage.getItem('token')
 

@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccessDeniedRouteImport } from './routes/access-denied'
 import { Route as AddbookRouteImport } from './routes/addbook'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BookRouteImport } from './routes/book'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as AdminAddbookRouteImport } from './routes/admin.addbook'
@@ -37,6 +38,11 @@ const AddbookRoute = AddbookRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookRoute = BookRouteImport.update({
+  id: '/book',
+  path: '/book',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/access-denied': typeof AccessDeniedRoute
   '/addbook': typeof AddbookRoute
   '/admin': typeof AdminRouteWithChildren
+  '/book': typeof BookRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/admin/addbook': typeof AdminAddbookRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/access-denied': typeof AccessDeniedRoute
   '/addbook': typeof AddbookRoute
   '/admin': typeof AdminRouteWithChildren
+  '/book': typeof BookRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/admin/addbook': typeof AdminAddbookRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/access-denied': typeof AccessDeniedRoute
   '/addbook': typeof AddbookRoute
   '/admin': typeof AdminRouteWithChildren
+  '/book': typeof BookRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/admin/addbook': typeof AdminAddbookRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/access-denied'
     | '/addbook'
     | '/admin'
+    | '/book'
     | '/login'
     | '/register'
     | '/admin/addbook'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/access-denied'
     | '/addbook'
     | '/admin'
+    | '/book'
     | '/login'
     | '/register'
     | '/admin/addbook'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/access-denied'
     | '/addbook'
     | '/admin'
+    | '/book'
     | '/login'
     | '/register'
     | '/admin/addbook'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   AccessDeniedRoute: typeof AccessDeniedRoute
   AddbookRoute: typeof AddbookRoute
   AdminRoute: typeof AdminRouteWithChildren
+  BookRoute: typeof BookRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   DetailsIdRoute: typeof DetailsIdRoute
@@ -173,6 +186,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book': {
+      id: '/book'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof BookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -230,6 +250,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccessDeniedRoute: AccessDeniedRoute,
   AddbookRoute: AddbookRoute,
   AdminRoute: AdminRouteWithChildren,
+  BookRoute: BookRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   DetailsIdRoute: DetailsIdRoute,

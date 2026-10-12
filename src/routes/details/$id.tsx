@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { getBook } from '#/book/serviceBook.ts'
+import {  getBook } from '#/book/serviceBook.ts'
+import type {BookRequest} from '#/book/serviceBook.ts';
 
 export const Route = createFileRoute('/details/$id')({
   loader: async ({ params }) => {
@@ -9,17 +10,10 @@ export const Route = createFileRoute('/details/$id')({
   component: DetailsPage,
 })
 
-interface Book {
-  title: string
-  author: string
-  yearPublished: string
-  category: string
-  exemplaryNumber: number
-}
 
   function DetailsPage() {
-    const book : Book = Route.useLoaderData()
-    const { id } = Route.useParams()
+    const book : BookRequest = Route.useLoaderData()
+
 
     return (
       <div>
@@ -31,7 +25,7 @@ interface Book {
         <Link
           to="/admin/deleteBook/$id"
           className="mt-6 inline-block rounded-lg bg-red-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
-          params={id}
+          params={{ id: String(book.id) }}
         >
           Supprimer un livre
         </Link>
