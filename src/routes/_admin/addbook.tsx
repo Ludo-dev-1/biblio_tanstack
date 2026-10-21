@@ -1,8 +1,8 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
-import { addBook } from '#/book/serviceBook'
+import { addBook } from '#/book/serviceBook.ts'
 
-export const Route = createFileRoute('/admin/addbook')({
+export const Route = createFileRoute('/_admin/addbook')({
   component: AddBook,
 })
 
@@ -38,7 +38,7 @@ function AddBook() {
   return (
     <div className="p-6">
       <div className="mb-6 rounded-lg border border-amber-300 bg-amber-50 p-4">
-      🔒 Route protégée par le parent <code>/admin</code>
+        🔒 Route protégée par le parent <code>/admin</code>
       </div>
       <h1 className="mb-6 text-2xl font-bold">Ajouter un livre</h1>
 

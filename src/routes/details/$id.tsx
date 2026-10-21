@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import {  getBook } from '#/book/serviceBook.ts'
-import type {BookRequest} from '#/book/serviceBook.ts';
+import {createFileRoute, Link} from '@tanstack/react-router'
+import type {BookRequest} from '#/book/serviceBook.ts'
+import {getBook} from '#/book/serviceBook.ts'
 
 export const Route = createFileRoute('/details/$id')({
   loader: async ({ params }) => {
@@ -10,30 +10,26 @@ export const Route = createFileRoute('/details/$id')({
   component: DetailsPage,
 })
 
+function DetailsPage() {
+  const book: BookRequest = Route.useLoaderData()
 
-  function DetailsPage() {
-    const book : BookRequest = Route.useLoaderData()
-
-
-    return (
-      <div>
-        <h1>Titre : {book.title}</h1>
-        <p>Auteur : {book.author}</p>
-        <p>Année de publication : {book.yearPublished}</p>
-        <p>Catégorie : {book.category}</p>
-        <p>Nombre d'exemplaire : {book.exemplaryNumber}</p>
-        <Link
-          to="/admin/deleteBook/$id"
-          className="mt-6 inline-block rounded-lg bg-red-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
-          params={{ id: String(book.id) }}
-        >
-          Supprimer un livre
-        </Link>
-      </div>
-    )
-  }
-
-
+  return (
+    <div>
+      <h1>Titre : {book.title}</h1>
+      <p>Auteur : {book.author}</p>
+      <p>Année de publication : {book.yearPublished}</p>
+      <p>Catégorie : {book.category}</p>
+      <p>Nombre d'exemplaire : {book.exemplaryNumber}</p>
+      <Link
+        to="/deleteBook/$id"
+        className="mt-6 inline-block rounded-lg bg-red-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
+        params={{ id: String(book.id) }}
+      >
+        Supprimer un livre
+      </Link>
+    </div>
+  )
+}
 
 /*
 export const Route = createFileRoute('/details/$id')({
@@ -71,4 +67,3 @@ function DetailsPage() {
       </div>
   )
 }*/
-

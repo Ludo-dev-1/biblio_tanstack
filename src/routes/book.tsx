@@ -1,7 +1,7 @@
-import {createFileRoute, Link} from '@tanstack/react-router'
-import type {BookRequest} from '#/book/serviceBook.ts'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import type { BookRequest } from '#/book/serviceBook.ts'
 /* import { getAllBookWithLoader } from '#/book/serviceBook.ts'*/
-import {getAllBook} from '#/book/serviceBook.ts'
+import { getAllBook } from '#/book/serviceBook.ts'
 
 export const Route = createFileRoute('/book')({
   loader: getAllBook,
@@ -29,7 +29,7 @@ function Books() {
               <Link
                 to="/details/$id"
                 params={{
-                  id: book.id,
+                  id: String(book.id),
                 }}
                 className="text-blue-600 hover:underline"
               >
@@ -40,17 +40,11 @@ function Books() {
         </ul>
 
         <Link
-          to="/admin/addbook"
+          to="/addbook"
           className="mt-6 inline-block rounded-lg bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
         >
           Ajouter un livre
         </Link>
-        {/*    <Link
-          to="/addbook"
-          className="mt-6 inline-block rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
-        >
-          Ajouter un livre sans route Admin parent
-        </Link>*/}
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { httpClient } from '../api/http-client'
 
 export interface BookRequest {
-  id: string
+  id?: string
   title: string
   author: string
   category: string

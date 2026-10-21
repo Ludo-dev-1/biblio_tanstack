@@ -1,7 +1,7 @@
-import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { isAdmin } from '#/auth/service.ts'
 
-export const Route = createFileRoute('/admin')({
+export const Route = createFileRoute('/_admin')({
   beforeLoad: () => {
     const token = localStorage.getItem('token')
 
