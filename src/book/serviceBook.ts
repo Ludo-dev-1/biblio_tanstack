@@ -8,6 +8,23 @@ export interface BookRequest {
   yearPublished: number
   exemplaryNumber: number
 }
+export async function getBooksAuthor() {
+  const token = localStorage.getItem('token')
+
+  const response = await httpClient.get('/api/books', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const authors = response.data.map((book: any) => book.author)
+
+  // Crée une nouvelle instance de Set en utilisant les valeurs du tableau authors,
+  // un Set est comme un tableau sauf qu'il n'accepte pas les doublons
+  const uniqueAuthors = new Set(authors)
+
+  return uniqueAuthors.size
+}
 
 export async function getAllBook() {
   const token = localStorage.getItem('token')
@@ -16,7 +33,7 @@ export async function getAllBook() {
       Authorization: `Bearer ${token}`,
     },
   })
-
+  console.log(response.data)
   return response.data
 }
 export async function getAllBookWithLoader() {
